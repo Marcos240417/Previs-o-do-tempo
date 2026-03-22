@@ -1,17 +1,15 @@
 package com.example.aplicativodeprevisodotempo.core.di
 
-import com.example.aplicativodeprevisodotempo.core.data.DataStoreManager
-import com.example.aplicativodeprevisodotempo.core.data.repository.WeatherRepository
-import com.example.aplicativodeprevisodotempo.core.data.repository.WeatherRepositoryImpl
-import com.example.aplicativodeprevisodotempo.core.data.utils.Constants
-import com.example.aplicativodeprevisodotempo.core.local.dao.CityDao
-import com.example.aplicativodeprevisodotempo.core.local.dao.WeatherDao
-import com.example.aplicativodeprevisodotempo.core.local.db.WeatherDatabase
-import com.example.aplicativodeprevisodotempo.core.remote.api.WeatherService
-import com.example.aplicativodeprevisodotempo.core.viewmodel.DetailsViewModel
-import com.example.aplicativodeprevisodotempo.core.viewmodel.FavoritesViewModel
-import com.example.aplicativodeprevisodotempo.core.viewmodel.HomeViewModel
-import com.example.aplicativodeprevisodotempo.core.viewmodel.SearchViewModel
+import com.example.aplicativodeprevisodotempo.data.storage.DataStoreManager
+import com.example.aplicativodeprevisodotempo.domain.repository.WeatherRepository
+import com.example.aplicativodeprevisodotempo.data.repository.WeatherRepositoryImpl
+import com.example.aplicativodeprevisodotempo.core.common.Constants
+import com.example.aplicativodeprevisodotempo.data.local.db.WeatherDatabase
+import com.example.aplicativodeprevisodotempo.data.remote.api.WeatherService
+import com.example.aplicativodeprevisodotempo.presentation.screens.details.DetailsViewModel
+import com.example.aplicativodeprevisodotempo.presentation.screens.favorites.FavoritesViewModel
+import com.example.aplicativodeprevisodotempo.presentation.screens.home.HomeViewModel
+import com.example.aplicativodeprevisodotempo.presentation.screens.search.SearchViewModel
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.core.module.dsl.viewModel
@@ -21,15 +19,19 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 
+
 val networkModule = module {
     single {
-        val logging = HttpLoggingInterceptor().apply {
+        HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         }
+    }
+
+    single {
         OkHttpClient.Builder()
-            .addInterceptor(logging)
-            .connectTimeout(5, TimeUnit.SECONDS)
-            .readTimeout(5, TimeUnit.SECONDS)
+            .addInterceptor(get<HttpLoggingInterceptor>())
+            .connectTimeout(10, TimeUnit.SECONDS)
+            .readTimeout(10, TimeUnit.SECONDS)
             .build()
     }
 
@@ -44,24 +46,27 @@ val networkModule = module {
 }
 
 
-val databaseModule = module {
-    single<WeatherDatabase> { WeatherDatabase.getDatabase(get()) }
-    single<WeatherDao> { get<WeatherDatabase>().weatherDao() }
-    single<CityDao> { get<WeatherDatabase>().cityDao() }
+val dataModule = module {
+    single { WeatherDatabase.getDatabase(get()) }
+    single { get<WeatherDatabase>().weatherDao() }
+    single { get<WeatherDatabase>().cityDao() }
+
     single { DataStoreManager(get()) }
 
     single<WeatherRepository> {
         WeatherRepositoryImpl(
             api = get(),
-            cityDao = get<CityDao>(),
-            weatherDao = get<WeatherDao>(),
+            cityDao = get(),
+            weatherDao = get(),
             dataStore = get()
         )
     }
 }
+
 val viewModelModule = module {
     viewModel { HomeViewModel(get()) }
     viewModel { SearchViewModel(get()) }
     viewModel { DetailsViewModel(get()) }
     viewModel { FavoritesViewModel(get()) }
 }
+
