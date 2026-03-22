@@ -54,7 +54,6 @@ fun HomeWeatherScreen(
             }
         },
         floatingActionButton = {
-            // BOTÃO AMPLIADO E COM NOVO TEXTO
             ExtendedFloatingActionButton(
                 onClick = onNavigateToSearch,
                 containerColor = ElectricCyan,
@@ -62,7 +61,7 @@ fun HomeWeatherScreen(
                 shape = RoundedCornerShape(20.dp),
                 modifier = Modifier
                     .padding(bottom = 16.dp)
-                    .height(64.dp), // Aumentando a altura do botão
+                    .height(64.dp),
                 icon = { Icon(Icons.Default.Search, contentDescription = null, modifier = Modifier.size(28.dp)) },
                 text = {
                     Text(
@@ -74,7 +73,7 @@ fun HomeWeatherScreen(
                 }
             )
         },
-        floatingActionButtonPosition = FabPosition.Center // Centraliza o botão grande na parte inferior
+        floatingActionButtonPosition = FabPosition.Center
     ) { padding ->
         Box(
             modifier = Modifier
@@ -89,7 +88,6 @@ fun HomeWeatherScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                // --- CONTEÚDO CENTRAL ---
                 Column(
                     modifier = Modifier
                         .clickable { cityName?.let { onNavigateToDetails(it) } },

@@ -19,7 +19,7 @@ fun WeatherCardPlaceholder() {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .height(160.dp) // Mesma altura do seu WeatherCard
+            .height(160.dp)
             .padding(horizontal = 16.dp, vertical = 8.dp),
         shape = RoundedCornerShape(24.dp),
         border = BorderStroke(1.dp, Color.White.copy(alpha = 0.05f)),

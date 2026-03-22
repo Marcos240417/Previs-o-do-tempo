@@ -26,10 +26,6 @@ import androidx.compose.ui.unit.sp
 import com.example.aplicativodeprevisodotempo.core.data.utils.Constants
 import com.example.aplicativodeprevisodotempo.core.local.relations.CityWithForecasts
 
-/**
- * Componente moderno para exibição de clima por cidade.
- * Resolve o requisito do desafio: "Fix broken weather icons".
- */
 @Composable
 fun WeatherCardModern(
     cityWithForecast: CityWithForecasts,
@@ -38,16 +34,12 @@ fun WeatherCardModern(
 ) {
     var visible by remember { mutableStateOf(false) }
 
-    // Dispara a animação de entrada
     LaunchedEffect(Unit) { visible = true }
 
     val city = cityWithForecast.city
     val forecast = cityWithForecast.forecasts.firstOrNull()
 
-    // Converte temperatura para Double para lógica de cores dinâmica
     val tempValue = forecast?.temp?.toDouble() ?: 0.0
-
-    // Gradiente dinâmico baseado na temperatura (Toque de brilho no app!)
     val cardGradient = when {
         tempValue > 28.0 -> Brush.linearGradient(listOf(Color(0xFFFF5F6D), Color(0xFFFFC371)))
         tempValue < 22.0 -> Brush.linearGradient(listOf(Color(0xFF4FACFE), Color(0xFF00F2FE)))
@@ -75,7 +67,6 @@ fun WeatherCardModern(
                     .padding(20.dp)
             ) {
 
-                // --- BOTÃO DE FAVORITO ---
                 IconButton(
                     onClick = onFavoriteClick,
                     modifier = Modifier
@@ -89,7 +80,6 @@ fun WeatherCardModern(
                     )
                 }
 
-                // --- INFORMAÇÕES PRINCIPAIS ---
                 Column(
                     modifier = Modifier.align(Alignment.TopStart),
                     verticalArrangement = Arrangement.spacedBy(4.dp)
@@ -118,9 +108,7 @@ fun WeatherCardModern(
                     }
                 }
 
-                // --- ÍCONE DO CLIMA DINÂMICO ---
                 forecast?.let {
-                    // Mapeia o código da API (ex: "01d") para o drawable local
                     val iconRes = Constants.getWeatherIcon(it.icon)
 
                     Image(
@@ -138,9 +126,6 @@ fun WeatherCardModern(
     }
 }
 
-/**
- * Pequeno selo estilizado para temperatura e descrição.
- */
 @Composable
 fun WeatherBadge(label: String) {
     Surface(

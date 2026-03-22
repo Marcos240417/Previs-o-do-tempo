@@ -25,7 +25,6 @@ fun FavoritesScreen(
     viewModel: FavoritesViewModel = koinViewModel(),
     onCityClick: (String) -> Unit,
 ) {
-    // Coleta a lista de cidades favoritas do Banco de Dados (Room)
     val favoriteCities by viewModel.favoriteCities.collectAsStateWithLifecycle()
 
     Scaffold(
@@ -33,9 +32,7 @@ fun FavoritesScreen(
             TopAppBar(
                 title = { Text("Cidades Favoritas", fontWeight = FontWeight.Bold) },
                 actions = {
-                    // BOTÃO QUE RESOLVE O "never used" de refreshFavorites
                     IconButton(onClick = {
-                        // Chama a atualização em massa usando a sua chave da API
                         viewModel.refreshFavorites(Constants.API_KEY)
                     }) {
                         Icon(
@@ -67,13 +64,12 @@ fun FavoritesScreen(
             ) {
                 items(
                     items = favoriteCities,
-                    key = { it.city.cityName } // Melhora a performance da lista
+                    key = { it.city.cityName }
                 ) { item ->
                     WeatherCardModern(
                         cityWithForecast = item,
                         onClick = { onCityClick(item.city.cityName) },
                         onFavoriteClick = {
-                            // Chama o toggleFavorite: Agora a ViewModel está 100% ativa!
                             viewModel.toggleFavorite(item.city.cityName, !item.city.isFavorite)
                         }
                     )

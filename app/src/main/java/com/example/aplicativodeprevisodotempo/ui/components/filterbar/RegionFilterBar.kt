@@ -13,7 +13,7 @@ import com.example.aplicativodeprevisodotempo.core.data.utils.CityLoader
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RegionFilterBar(
-    selectedRegion: String, // Agora este parâmetro será usado!
+    selectedRegion: String,
     onRegionSelected: (String) -> Unit
 ) {
     val regionsList = CityLoader.getAvailableRegions()
@@ -24,15 +24,13 @@ fun RegionFilterBar(
             .padding(8.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        // CORREÇÃO: Remova o 'count =' e passe a lista diretamente
+
         items(regionsList) { region ->
             FilterChip(
-                // 1. AQUI O PARÂMETRO É USADO: Resolve o aviso "never used"
                 selected = selectedRegion == region,
 
                 onClick = { onRegionSelected(region) },
                 label = {
-                    // 2. AQUI O 'region' é String: Resolve o erro de "Int mismatch"
                     Text(text = region, color = Color.White)
                 },
                 colors = FilterChipDefaults.filterChipColors(

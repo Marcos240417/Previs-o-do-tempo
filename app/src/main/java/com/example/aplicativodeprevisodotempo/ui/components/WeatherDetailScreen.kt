@@ -73,15 +73,13 @@ fun WeatherDetailScreen(
                         verticalArrangement = Arrangement.Center
                     ) {
 
-                        // --- AJUSTE DOS ÍCONES (RESOLVIDO) ---
-                        // Aqui chamamos a função que mapeia o código da API para o seu Drawable
                         val iconRes = Constants.getWeatherIcon(current.icon)
 
                         Image(
                             painter = painterResource(id = iconRes),
                             contentDescription = current.description,
                             modifier = Modifier
-                                .size(180.dp) // Tamanho de destaque para a tela de detalhes
+                                .size(180.dp)
                                 .padding(bottom = 16.dp),
                             contentScale = ContentScale.Fit
                         )
@@ -103,7 +101,6 @@ fun WeatherDetailScreen(
 
                         Spacer(modifier = Modifier.height(40.dp))
 
-                        // --- GRID DE DETALHES ---
                         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
                             DetailColumn("Mínima", "${current.tempMin.toInt()}°")
                             DetailColumn("Máxima", "${current.tempMax.toInt()}°")

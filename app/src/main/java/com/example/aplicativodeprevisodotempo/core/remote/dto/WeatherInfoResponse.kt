@@ -4,8 +4,8 @@ import com.google.gson.annotations.SerializedName
 
 data class WeatherInfoResponse(
     @SerializedName("temp") val temp: Float,
-    @SerializedName("temp_min") val tempMin: Float, // Adicionado
-    @SerializedName("temp_max") val tempMax: Float, // Adicionado
-    @SerializedName("pressure") val pressure: Float, // Adicionado
-    @SerializedName("humidity") val humidity: Float // Alterado para Float para evitar mismatch
+    @SerializedName("temp_min") val tempMin: Float,
+    @SerializedName("temp_max") val tempMax: Float,
+    @SerializedName("pressure") val pressure: Float,
+    @SerializedName("humidity") val humidity: Float
 )
