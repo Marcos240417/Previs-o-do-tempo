@@ -1,7 +1,7 @@
-Clima Now - Previsão do Tempo Reativa
+#Clima Now - Previsão do Tempo Reativa
 O Clima Now é um aplicativo Android moderno de previsão do tempo que utiliza a API da OpenWeather para fornecer dados meteorológicos precisos. O projeto foi construído focando em performance offline, reatividade e experiência do usuário (UX) simplificada.
 
-Metas do Desafio Técnico Cumpridas
+##Metas do Desafio Técnico Cumpridas
 Abaixo estão listados os requisitos técnicos solicitados e como foram implementados:
 O aplicativo é funcional, mas ainda há melhorias e correções de bugs a serem feitas. Veja o que está em nossa lista de prioridades:
 •	Adicione sua chave de API ao local.propertiesarquivo: WEATHER_API_KEY= <your-api-key-here>
@@ -10,7 +10,7 @@ O aplicativo é funcional, mas ainda há melhorias e correções de bugs a serem
 •	Corrigir ícones de clima quebrados
 •	Elimine problemas de dados duplicados
 
-Essenciais & Funcionalidades
+##Essenciais & Funcionalidades
 •	Listagem de Cidades: Implementada com Paging 3 para carregamento infinito de uma base local de cidades brasileiras.
 •	Busca de Cidades: Filtro em tempo real por nome, estado e região geográfica.
 •	Detalhamento de Clima: Tela dedicada exibindo temperatura, sensação térmica, umidade e pressão atmosférica.
@@ -24,14 +24,14 @@ Diferenciais Técnicos (Qualidade de Código)
 •	Mapeamento de Ícones: Sistema inteligente em Constants para traduzir códigos da API em recursos locais, corrigindo ícones quebrados.
 •	UX Dinâmica: Fundo do aplicativo altera o gradiente automaticamente com base no horário e na temperatura da cidade visualizada.
 
-Arquitetura do Projeto
+##Arquitetura do Projeto
 O projeto utiliza uma estrutura modular por camadas para garantir escalabilidade:
 •	Presentation: UI construída 100% em Jetpack Compose, organizada por features (Home, Search, Details).
 •	Domain: Contém as interfaces dos repositórios e a lógica de negócio pura.
 •	Data: Gerencia as fontes de dados (Retrofit para API e Room para persistência local) e implementa os Repositories.
 •	Core: Utilidades transversais como Injeção de Dependência e Temas.
 ________________________________________
-Tecnologias Utilizadas
+##Tecnologias Utilizadas
 •	Jetpack Compose: UI declarativa e moderna.
 •	Koin: Injeção de dependência leve e rápida.
 •	Retrofit + OkHttp: Comunicação com a API REST.
@@ -40,11 +40,11 @@ Tecnologias Utilizadas
 •	Paging 3: Paginação eficiente da lista de cidades.
 •	DataStore: Armazenamento de preferências simples do usuário.
 ________________________________________
-Demonstração das Funcionalidades
+##Demonstração das Funcionalidades
 Home (GPS)	Busca & Filtros	Detalhes
 Clima local automático com cores dinâmicas.	Filtro por Região/Estado e busca por nome.	Dados detalhados de pressão e umidade.
 ________________________________________
-Como rodar o projeto
+##Como rodar o projeto
 1.	Clone o repositório:
 Bash
 2.	git clone https://github.com/seu-usuario/aplicativo-previsao-tempo.git
@@ -54,9 +54,9 @@ Kotlin
 const val API_KEY = "SUA_CHAVE_AQUI"
 5.	Execute o projeto no Android Studio (Giraffe ou superior).
 ________________________________________
-Desenvolvedor
-•	LinkedIn - https://www.linkedin.com/in/marcosterto-dev240417/
+##Desenvolvedor
+•	LinkedIn - [Texto do Link](https://www.linkedin.com/in/marcosterto-dev240417/)
 ________________________________________
-Nota de Encerramento
+###Nota de Encerramento
 Este projeto foi desenvolvido como parte de um desafio técnico, priorizando não apenas a entrega das funcionalidades, mas a aplicação de boas práticas de engenharia de software, resultando em um código limpo, testável e de fácil manutenção.
 
