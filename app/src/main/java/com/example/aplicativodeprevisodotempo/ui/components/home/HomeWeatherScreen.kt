@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -34,22 +35,43 @@ fun HomeWeatherScreen(
 ) {
     val weatherData by viewModel.currentLocationWeather.collectAsStateWithLifecycle()
     val cityName by viewModel.lastCityName.collectAsStateWithLifecycle()
+    val allCities by viewModel.allCitiesWeather.collectAsStateWithLifecycle()
 
-    val dynamicBg = getDynamicBackgroundColor()
+    val dynamicBg = getDynamicBackgroundColor(weatherData?.forecasts?.firstOrNull()?.temp ?: 25f)
+
+    LaunchedEffect(Unit) {
+        viewModel.refreshLocationWeather()
+    }
 
     Scaffold(
         containerColor = Color.Transparent,
         topBar = {
-            Box(modifier = Modifier.fillMaxWidth().statusBarsPadding().padding(horizontal = 16.dp, vertical = 8.dp)) {
-                IconButton(
-                    onClick = onNavigateToFavorites,
-                    modifier = Modifier.align(Alignment.TopEnd)
-                ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .statusBarsPadding()
+                    .padding(horizontal = 16.dp, vertical = 8.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                IconButton(onClick = { viewModel.refreshLocationWeather() }) {
                     Icon(
-                        imageVector = Icons.Default.Favorite,
-                        contentDescription = "Favoritos",
+                        imageVector = Icons.Default.Refresh,
+                        contentDescription = "Atualizar",
                         tint = Color.White
                     )
+                }
+
+                IconButton(onClick = onNavigateToFavorites) {
+                    BadgedBox(badge = {
+                        if (allCities.isNotEmpty()) Badge { Text(allCities.size.toString()) }
+                    }) {
+                        Icon(
+                            imageVector = Icons.Default.Favorite,
+                            contentDescription = "Favoritos",
+                            tint = Color.White
+                        )
+                    }
                 }
             }
         },
@@ -60,8 +82,9 @@ fun HomeWeatherScreen(
                 contentColor = Color.Black,
                 shape = RoundedCornerShape(20.dp),
                 modifier = Modifier
-                    .padding(bottom = 16.dp)
-                    .height(64.dp),
+                    .padding(bottom = 32.dp)
+                    .height(64.dp)
+                    .fillMaxWidth(0.8f),
                 icon = { Icon(Icons.Default.Search, contentDescription = null, modifier = Modifier.size(28.dp)) },
                 text = {
                     Text(
@@ -102,15 +125,14 @@ fun HomeWeatherScreen(
                     )
 
                     weatherData?.forecasts?.firstOrNull()?.let { current ->
-
                         val iconRes = Constants.getWeatherIcon(current.icon)
 
                         Image(
                             painter = painterResource(id = iconRes),
                             contentDescription = current.description,
                             modifier = Modifier
-                                .size(160.dp)
-                                .padding(vertical = 12.dp),
+                                .size(180.dp)
+                                .padding(vertical = 8.dp),
                             contentScale = ContentScale.Fit
                         )
 
@@ -129,7 +151,7 @@ fun HomeWeatherScreen(
                             fontWeight = FontWeight.ExtraBold
                         )
 
-                        Spacer(modifier = Modifier.height(40.dp))
+                        Spacer(modifier = Modifier.height(48.dp))
 
                         Row(
                             modifier = Modifier.fillMaxWidth(),
@@ -139,7 +161,11 @@ fun HomeWeatherScreen(
                             HomeDetailItem("Pressão", "${current.pressure.toInt()} hPa")
                         }
                     } ?: run {
-                        CircularProgressIndicator(color = ElectricCyan)
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            CircularProgressIndicator(color = ElectricCyan, strokeWidth = 4.dp)
+                            Spacer(modifier = Modifier.height(16.dp))
+                            Text("Sincronizando clima...", color = Color.White.copy(alpha = 0.6f))
+                        }
                     }
                 }
             }
@@ -150,7 +176,17 @@ fun HomeWeatherScreen(
 @Composable
 fun HomeDetailItem(label: String, value: String) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(label, color = Color.White.copy(alpha = 0.5f), fontSize = 14.sp)
-        Text(value, color = Color.White, fontWeight = FontWeight.Bold, fontSize = 20.sp)
+        Text(
+            text = label,
+            color = Color.White.copy(alpha = 0.5f),
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Medium
+        )
+        Text(
+            text = value,
+            color = Color.White,
+            fontWeight = FontWeight.Bold,
+            fontSize = 22.sp
+        )
     }
 }
