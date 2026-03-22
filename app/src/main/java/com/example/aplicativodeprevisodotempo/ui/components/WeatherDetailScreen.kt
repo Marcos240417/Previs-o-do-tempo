@@ -30,7 +30,8 @@ fun WeatherDetailScreen(
     onBack: () -> Unit
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
-    val dynamicBg = getDynamicBackgroundColor()
+    val currentTemp = (state as? DetailsUiState.Success)?.data?.info?.temp ?: 25f
+    val dynamicBg = getDynamicBackgroundColor(currentTemp)
 
     Box(modifier = Modifier.fillMaxSize().background(dynamicBg)) {
         when (val currentState = state) {
