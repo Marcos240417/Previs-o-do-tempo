@@ -3,10 +3,16 @@ package com.example.aplicativodeprevisodotempo.core.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.aplicativodeprevisodotempo.core.data.repository.WeatherRepository
-import com.example.aplicativodeprevisodotempo.core.local.relations.CityWithForecasts
 import com.example.aplicativodeprevisodotempo.core.data.utils.Constants
+import com.example.aplicativodeprevisodotempo.core.local.relations.CityWithForecasts
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import java.util.Locale
 
