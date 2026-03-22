@@ -12,7 +12,6 @@ fun getDynamicBackgroundColor(f: Float): Brush {
 
     val hour = remember { Calendar.getInstance().get(Calendar.HOUR_OF_DAY) }
     val isNight = hour !in 6..17
-
     return remember(f, isNight) {
         if (isNight) {
             NightGradient
