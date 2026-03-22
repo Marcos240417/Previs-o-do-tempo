@@ -56,8 +56,10 @@ fun WeatherListScreen(
     val selectedState by viewModel.selectedState.collectAsStateWithLifecycle()
     val statesInRegion by viewModel.statesInRegion.collectAsStateWithLifecycle()
 
-    val dynamicBg = getDynamicBackgroundColor()
     val pagingItems = viewModel.pagedCities.collectAsLazyPagingItems()
+
+    val firstItemTemp = pagingItems.itemSnapshotList.firstOrNull()?.forecasts?.firstOrNull()?.temp ?: 25f
+    val dynamicBg = getDynamicBackgroundColor(firstItemTemp)
 
     Box(modifier = Modifier.fillMaxSize().background(dynamicBg)) {
         Scaffold(
