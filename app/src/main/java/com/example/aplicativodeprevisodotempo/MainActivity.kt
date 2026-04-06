@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.example.aplicativodeprevisodotempo.data.utils.CityLoader
+import com.example.aplicativodeprevisodotempo.core.common.CityLoader
 import com.example.aplicativodeprevisodotempo.presentation.navigation.WeatherNavGraph
 import com.example.aplicativodeprevisodotempo.ui.theme.AplicativoDePrevisãoDoTempoTheme
 

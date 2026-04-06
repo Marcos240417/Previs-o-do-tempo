@@ -1,4 +1,4 @@
-package com.example.aplicativodeprevisodotempo.data.utils
+package com.example.aplicativodeprevisodotempo.core.common
 
 import android.content.Context
 import android.util.Log

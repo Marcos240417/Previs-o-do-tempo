@@ -24,14 +24,14 @@ class HomeViewModel(private val repository: WeatherRepository) : ViewModel() {
     val allCitiesWeather: StateFlow<List<CityWithForecasts>> = repository.getAllCitiesWithWeather()
         .stateIn(
             scope = viewModelScope,
-            started = SharingStarted.Companion.WhileSubscribed(5000),
+            started = SharingStarted.WhileSubscribed(5000),
             initialValue = emptyList()
         )
 
     val lastCityName: StateFlow<String?> = repository.getLastCitySynced()
         .stateIn(
             scope = viewModelScope,
-            started = SharingStarted.Companion.WhileSubscribed(5000),
+            started = SharingStarted.WhileSubscribed(5000),
             initialValue = "Localizando..."
         )
 
@@ -46,8 +46,8 @@ class HomeViewModel(private val repository: WeatherRepository) : ViewModel() {
     fun fetchWeatherByGps(lat: Double, lon: Double) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val latStr = String.Companion.format(Locale.US, "%.2f", lat)
-                val lonStr = String.Companion.format(Locale.US, "%.2f", lon)
+                val latStr = String.format(Locale.US, "%.2f", lat)
+                val lonStr = String.format(Locale.US, "%.2f", lon)
                 val apiKey = Constants.API_KEY
 
                 repository.syncWeatherData(latStr, lonStr, apiKey)

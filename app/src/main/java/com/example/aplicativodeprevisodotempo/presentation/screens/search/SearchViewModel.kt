@@ -8,7 +8,7 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.aplicativodeprevisodotempo.core.common.Constants
 import com.example.aplicativodeprevisodotempo.data.local.relations.CityWithForecasts
-import com.example.aplicativodeprevisodotempo.data.utils.CityLoader
+import com.example.aplicativodeprevisodotempo.core.common.CityLoader
 import com.example.aplicativodeprevisodotempo.domain.repository.WeatherRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.aplicativodeprevisodotempo.data.utils.CityLoader
+import com.example.aplicativodeprevisodotempo.core.common.CityLoader
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
